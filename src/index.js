@@ -7,7 +7,7 @@ const DEBOUNCE_DELAY = 300;
 const inputR = document.querySelector("#search-box");
 const countrysList = document.querySelector(".country-list");
 const countryInfo = document.querySelector(".country-info");
-// const text = document.querySelector(".fs");
+
 
 countrysList.style.listStyle = "none";
 inputR.style.marginLeft = "40px";
