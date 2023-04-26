@@ -6,7 +6,8 @@ import Notiflix from 'notiflix';
 const DEBOUNCE_DELAY = 300;
 const inputR = document.querySelector("#search-box");
 const countrysList = document.querySelector(".country-list");
-const countryInfo =document.querySelector(".country-info");
+const countryInfo = document.querySelector(".country-info");
+// const text = document.querySelector(".fs");
 
 countrysList.style.listStyle = "none";
 inputR.style.marginLeft = "40px";
@@ -16,9 +17,9 @@ function createCountryCard(arr) {
             
     <img src="${flags.svg}" alt="${flags.alt}" width="200">
     <h2>${name.official}</h2>
-    <p>Capital: ${capital}</p>
-    <p>Population: ${population}</p>
-    <p>Languages: ${Object.values(languages)}</p>
+    <p class="fs">Capital: <span class="ss">${capital}</span></p>
+    <p class="fs">Population: <span class="ss">${population}</span></p>
+    <p class="fs">Languages: <span class="ss">${Object.values(languages)}</span></p>
 
     </li>` ).join("");
 }
@@ -32,12 +33,6 @@ function createCountrysList(arr) {
     </li>` ).join("");
 }
 
-// fetchCountries()
-// .then((data) => {
-//     countrysList.insertAdjacentHTML("beforeend", createMarkup(data))
-// })
-// .catch((err) => console.log(err))
-
 inputR.addEventListener("input", debounce(onInputR, DEBOUNCE_DELAY));
 
 function onInputR(event) {
@@ -45,33 +40,32 @@ function onInputR(event) {
     const inputValue = event.target.value.toLowerCase().trim();
     if (inputValue === "") {
         countrysList.innerHTML = "";
-        // removeEventListener("input", debounce(onInputR, DEBOUNCE_DELAY))
         return
     } else {
         // if (countryName.includes("inputValue"))
         fetchCountries(inputValue)
         .then((data) => {
-            console.log(data)
-            console.log(data.length)
             
             if (data.length > 10) {
+                countrysList.innerHTML = "";
                 Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
-                
-            }
+            }    
             
             if (data.length === 1) {
-                countrysList.insertAdjacentHTML("beforeend", createCountryCard(data))
+                countrysList.innerHTML = "";
+                countrysList.insertAdjacentHTML("beforeend", createCountryCard(data))    
             }
-            
-            countrysList.insertAdjacentHTML("beforeend", createCountrysList(data))
+
+            if (data.length >=2  && data.length <= 10) {
+                countrysList.innerHTML = "";
+                countrysList.insertAdjacentHTML("beforeend", createCountrysList(data))     
+            } 
+                       
         })
         .catch((err) => 
         Notiflix.Notify.failure("Oops, there is no country with that name"));
 
     }
-
-    
-
      
 }
 

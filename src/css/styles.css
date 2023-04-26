@@ -18,3 +18,11 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+.fs {
+  font-weight: bold;
+}
+
+.ss {
+  font-weight: normal;
+}
