@@ -60,10 +60,10 @@ function onInputR(event) {
             }
             
             if (data.length === 1) {
-                countrysList.insertAdjacentHTML("beforeend", createCountryCard)
+                countrysList.insertAdjacentHTML("beforeend", createCountryCard(data))
             }
             
-            countrysList.insertAdjacentHTML("beforeend", createCountrysList)
+            countrysList.insertAdjacentHTML("beforeend", createCountrysList(data))
         })
         .catch((err) => 
         Notiflix.Notify.failure("Oops, there is no country with that name"));
